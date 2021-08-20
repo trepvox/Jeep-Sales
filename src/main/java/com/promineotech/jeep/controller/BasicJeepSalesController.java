@@ -7,7 +7,7 @@ import com.promineotech.jeep.entity.Jeep;
 @RestController
 public class BasicJeepSalesController implements JeepSalesController {
 
-  public List<Jeep> fetchJeeps(String model) {
+  public List<Jeep> fetchJeeps(String model, String trim) {
     // TODO Auto-generated method stub
     return null;
   }
