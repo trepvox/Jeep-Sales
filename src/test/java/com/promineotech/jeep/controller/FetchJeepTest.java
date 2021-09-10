@@ -47,7 +47,7 @@ class FetchJeepTest {
       JeepModel model = JeepModel.WRANGLER;
       String trim = "Sport";
       String uri = 
-          String.format("%s?model=%s&trim=%s", getBaseUri(), model, trim);
+          String.format("%s?model=%s&trim=%s", getBaseUriForJeeps(), model, trim);
     
        // When: a connection is made to the URI
        ResponseEntity<List<Jeep>> response = getRestTemplate().exchange(uri, 
@@ -73,7 +73,7 @@ class FetchJeepTest {
       JeepModel model = JeepModel.WRANGLER;
       String trim = "Unknown Value";
       String uri = 
-          String.format("%s?model=%s&trim=%s", getBaseUri(), model, trim);
+          String.format("%s?model=%s&trim=%s", getBaseUriForJeeps(), model, trim);
     
        // When: a connection is made to the URI
        ResponseEntity<Map<String, Object>> response = getRestTemplate().exchange(uri, 
@@ -98,7 +98,7 @@ class FetchJeepTest {
         String model, String trim, String reason) {
        // Given: a valid model, trim, and URI
       String uri = 
-          String.format("%s?model=%s&trim=%s", getBaseUri(), model, trim);
+          String.format("%s?model=%s&trim=%s", getBaseUriForJeeps(), model, trim);
     
        // When: a connection is made to the URI
        ResponseEntity<Map<String, Object>> response = getRestTemplate().exchange(uri, 
@@ -112,7 +112,7 @@ class FetchJeepTest {
        
        assertErrorMessageValid(error, HttpStatus.BAD_REQUEST);
     }
-
+  }
 
     static Stream<Arguments> parametersForInvalidInput() {
       // @formatter:off
@@ -122,6 +122,7 @@ class FetchJeepTest {
           arguments("INVALID", "SPORT", "Model is not enum value")
       // @ formatter:on    
           );
+  }
   
   @Nested
   @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -144,7 +145,7 @@ class FetchJeepTest {
       JeepModel model = JeepModel.WRANGLER;
       String trim = "Invalid";
       String uri = 
-          String.format("%s?model=%s&trim=%s", getBaseUri(), model, trim);
+          String.format("%s?model=%s&trim=%s", getBaseUriForJeeps(), model, trim);
     
       doThrow(new RuntimeException("Ouch!")).when(jeepSalesService)
         .fetchJeeps(model, trim);
@@ -164,8 +165,5 @@ class FetchJeepTest {
        assertErrorMessageValid(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-  
  
-  }
- }
 }
